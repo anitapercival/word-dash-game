@@ -1,6 +1,12 @@
-# WordDash – Real-time Team Building Game
+# WordDash: Real-time Team Building Game
 
 WordDash is a real-time multiplayer web game designed to help remote teams engage in fun, fast-paced team-building exercises. Each player must come up with answers for given categories, starting with a random letter, before time runs out. After submission, team members vote on the creativity and validity of answers, leading to a dynamic leaderboard.
+
+<img width="500" height="900" alt="Screenshot 2025-07-24 at 16 18 14" src="https://github.com/user-attachments/assets/4cfc1943-a4e3-458d-8c01-bd8f1217c675" />
+
+<img width="500" height="900" alt="Screenshot 2025-07-24 at 16 22 47" src="https://github.com/user-attachments/assets/c3c3b3b4-6b0f-47b9-8bb2-5ef5654edeb2" />
+
+<img width="500" height="900" alt="Screenshot 2025-07-24 at 16 23 45" src="https://github.com/user-attachments/assets/4dd60223-7b45-423c-8c15-fa559340a99a" />
 
 ---
 
