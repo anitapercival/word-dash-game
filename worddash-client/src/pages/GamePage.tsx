@@ -123,7 +123,6 @@ const GamePage = () => {
                   maxLength={20}
                   value={answers[category] || ''}
                   onChange={(e) => handleChange(category, e.target.value)}
-                  placeholder={`Enter a ${category.toLowerCase()} starting with "${letter}"`}
                   className={`px-4 py-3 bg-[#1a1a1a] border-4 ${
                     answers[category] && !startsWithLetter(answers[category])
                       ? 'border-red-600'

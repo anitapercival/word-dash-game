@@ -38,6 +38,7 @@ io.on('connection', (socket) => {
       currentLetter: '',
       categories: [],
       answers: {},
+      categoryResults: [],
     }
     socket.join(roomId)
     socket.emit('roomCreated', roomId)
@@ -94,6 +95,7 @@ io.on('connection', (socket) => {
     room.currentLetter = letter
     room.categories = categories
     room.answers = {}
+    room.categoryResults = []
 
     io.to(roomId).emit('gameStarted', { letter, categories, roundTime: ROUND_TIME })
   })
@@ -137,8 +139,29 @@ io.on('connection', (socket) => {
         return { category, answers: answersForCategory }
       })
 
+      room.categoryResults = categoryResults
+
       io.to(roomId).emit('submittedAnswers', categoryResults)
     }
+  })
+
+  socket.on('vote', ({ roomId, categoryIndex, playerId, type }) => {
+    const room = rooms[roomId]
+    if (!room) return
+
+    const category = room.categoryResults[categoryIndex]
+    if (!category) return
+
+    const answer = category.answers.find((a) => a.playerId === playerId)
+    if (!answer) return
+
+    answer.votes += type === 'up' ? 1 : -1
+
+    io.to(roomId).emit('voteUpdate', {
+      categoryIndex,
+      playerId,
+      votes: answer.votes,
+    })
   })
 
   socket.on('nextCategory', ({ roomId, nextIndex }) => {
@@ -150,22 +173,33 @@ io.on('connection', (socket) => {
   socket.on('showLeaderboard', ({ roomId }) => {
     const room = rooms[roomId]
     if (!room || socket.id !== room.creatorId) return
-    io.to(roomId).emit('showLeaderboard')
+
+    // Compute scores
+    const playerScores = {}
+    room.categoryResults.forEach((cat) => {
+      cat.answers.forEach((ans) => {
+        playerScores[ans.playerId] =
+          (playerScores[ans.playerId] || 0) + ans.votes
+      })
+    })
+
+    const scores = Object.entries(playerScores).map(([playerId, score]) => {
+      const player = room.players.find((p) => p.id === playerId)
+      return {
+        playerId,
+        playerName: player ? player.name : 'Unknown',
+        score,
+      }
+    })
+
+    io.to(roomId).emit('showLeaderboard', scores)
   })
 
   socket.on('requestCategories', ({ roomId }) => {
     const room = rooms[roomId]
     if (!room) return
-    if (Object.keys(room.answers).length > 0) {
-      const categoryResults = room.categories.map((category) => {
-        const answersForCategory = room.players.map((player) => ({
-          playerId: player.id,
-          answer: room.answers[player.id]?.[category] || '',
-          votes: 0,
-        }))
-        return { category, answers: answersForCategory }
-      })
-      socket.emit('submittedAnswers', categoryResults)
+    if (room.categoryResults.length > 0) {
+      socket.emit('submittedAnswers', room.categoryResults)
     }
   })
 

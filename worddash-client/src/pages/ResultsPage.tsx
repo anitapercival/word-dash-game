@@ -15,6 +15,7 @@ type CategoryResults = {
 
 type Score = {
   playerId: string
+  playerName: string
   score: number
 }
 
@@ -43,9 +44,22 @@ const ResultsPage = () => {
       setVoted(new Set())
     })
 
-    socket.on('showLeaderboard', () => {
-      calculateScores()
+    socket.on('showLeaderboard', (serverScores: Score[]) => {
+      setScores(serverScores.sort((a, b) => b.score - a.score))
       setShowLeaderboard(true)
+    })
+
+    socket.on('voteUpdate', ({ categoryIndex, playerId, votes }) => {
+      setCategories((prev) => {
+        const updated = [...prev]
+        const answer = updated[categoryIndex]?.answers.find(
+          (a) => a.playerId === playerId
+        )
+        if (answer) {
+          answer.votes = votes
+        }
+        return updated
+      })
     })
 
     socket.emit('requestCategories', { roomId })
@@ -54,6 +68,7 @@ const ResultsPage = () => {
       socket.off('submittedAnswers')
       socket.off('advanceCategory')
       socket.off('showLeaderboard')
+      socket.off('voteUpdate')
     }
   }, [socket, roomId])
 
@@ -61,15 +76,8 @@ const ResultsPage = () => {
     const voteKey = `${currentCategoryIndex}-${answer.playerId}`
     if (voted.has(voteKey)) return
 
-    const updatedCategories = [...categories]
-    const answerToUpdate = updatedCategories[currentCategoryIndex].answers.find(
-      (a) => a.playerId === answer.playerId
-    )
-    if (answerToUpdate) {
-      answerToUpdate.votes += type === 'up' ? 1 : -1
-    }
+    socket.emit('vote', { roomId, categoryIndex: currentCategoryIndex, playerId: answer.playerId, type })
 
-    setCategories(updatedCategories)
     setVoted(new Set(voted).add(voteKey))
   }
 
@@ -79,22 +87,6 @@ const ResultsPage = () => {
     } else {
       socket.emit('showLeaderboard', { roomId })
     }
-  }
-
-  const calculateScores = () => {
-    const playerScores: { [id: string]: number } = {}
-    categories.forEach((cat) => {
-      cat.answers.forEach((ans) => {
-        playerScores[ans.playerId] = (playerScores[ans.playerId] || 0) + ans.votes
-      })
-    })
-
-    const scoreList: Score[] = Object.entries(playerScores).map(([playerId, score]) => ({
-      playerId,
-      score,
-    }))
-
-    setScores(scoreList.sort((a, b) => b.score - a.score))
   }
 
   if (showLeaderboard) {
@@ -107,7 +99,7 @@ const ResultsPage = () => {
               key={score.playerId}
               className="flex justify-between items-center px-4 py-3 bg-black border-2 border-yellow-400"
             >
-              <span className="text-white">Player {score.playerId}</span>
+              <span className="text-white">{score.playerName}</span>
               <span className="text-yellow-300 font-bold">{score.score} pts</span>
             </li>
           ))}
