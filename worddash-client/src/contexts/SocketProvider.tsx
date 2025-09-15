@@ -7,7 +7,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [socket, setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-    const newSocket = io('http://localhost:3000')
+    const newSocket = io(import.meta.env.VITE_API_URL)
     setSocket(newSocket)
 
     return () => {
