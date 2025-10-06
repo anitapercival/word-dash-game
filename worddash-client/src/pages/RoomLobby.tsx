@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { useSocket } from '../hooks/useSocket'
+import Navbar from '../components/Navbar'
 
 type Player = {
   name: string
@@ -72,7 +73,8 @@ const RoomLobby = () => {
   if (!username) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] text-white font-retro p-6">
-        <h2 className="text-xl mb-4 text-[#08d9d6]">Enter Your Name</h2>
+        <Navbar/>
+        <h2 className="text-xl mb-4 text-[#08d9d6] pt-30">Enter Your Name</h2>
         <input
           type="text"
           placeholder="USERNAME"
@@ -93,7 +95,8 @@ const RoomLobby = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] text-white font-retro p-6">
-      <h2 className="text-2xl md:text-3xl mb-4 tracking-widest text-[#08d9d6]">
+      <Navbar/>
+      <h2 className="text-2xl md:text-3xl mb-4 tracking-widest text-[#08d9d6] pt-30">
         ROOM <span className="text-[#ff2e63]">#{roomId?.toUpperCase()}</span>
       </h2>
 

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import Navbar from '../components/Navbar'
 
 const Home = () => {
   const [roomCode, setRoomCode] = useState('')
@@ -18,7 +18,9 @@ const Home = () => {
   }
 
   return (
+    
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] text-white font-retro px-4 text-center">
+      <Navbar />
       <h1 className="text-3xl sm:text-4xl md:text-5xl mb-12 tracking-widest drop-shadow-[2px_2px_0px_#ff2e63]">
         <span className="text-[#08d9d6]">WORD</span>
         <span className="text-[#ff2e63]">DASH</span>

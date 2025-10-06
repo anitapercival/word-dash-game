@@ -90,29 +90,35 @@ const ResultsPage = () => {
   }
 
   if (showLeaderboard) {
-    return (
-      <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#1f1c2c] to-[#928dab] text-white font-retro p-6">
-        <h2 className="text-3xl mb-10 text-yellow-300">Leaderboard</h2>
-        <ul className="w-full max-w-md space-y-4 mb-16">
-          {scores.map((score) => (
-            <li
-              key={score.playerId}
-              className="flex justify-between items-center px-4 py-3 bg-black border-2 border-yellow-400"
-            >
-              <span className="text-white">{score.playerName}</span>
-              <span className="text-yellow-300 font-bold">{score.score} pts</span>
-            </li>
-          ))}
-        </ul>
-        <button
-          onClick={() => window.location.href = '/'}
-          className="px-6 py-4 bg-pink-500 text-white border-4 border-white text-xs hover:bg-pink-600 active:scale-95 transition-transform"
-        >
-          PLAY AGAIN
-        </button>
+  return (
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#1f1c2c] to-[#928dab] text-white font-retro p-6">
+      <h2 className="text-3xl mb-10 text-yellow-300 pt-20">Leaderboard</h2>
+      <ul className="w-full max-w-md space-y-4 mb-16">
+        {scores.map((score) => (
+          <li
+            key={score.playerId}
+            className="flex justify-between items-center px-4 py-3 bg-black border-2 border-yellow-400"
+          >
+            <span className="text-white">{score.playerName}</span>
+            <span className="text-yellow-300 font-bold">{score.score} pts</span>
+          </li>
+        ))}
+      </ul>
+
+      <button
+        onClick={() => window.location.href = '/'}
+        className="px-6 py-4 bg-pink-500 text-white border-4 border-white text-xs hover:bg-pink-600 active:scale-95 transition-transform mb-6"
+      >
+        PLAY AGAIN
+      </button>
+      <div className="px-4 py-2 border-4 border-black bg-[#f7d716] text-black text-xs uppercase tracking-widest font-retro hover:bg-yellow-400 active:scale-95 transition-transform cursor-not-allowed mt-4">
+        Log in to save your score
       </div>
-    )
-  }
+    </div>
+  )
+}
+
+
 
   if (categories.length === 0) {
     return (
@@ -124,7 +130,7 @@ const ResultsPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] text-white font-retro p-6">
-      <h2 className="text-2xl text-yellow-300 mb-10 tracking-widest">
+      <h2 className="text-2xl text-yellow-300 mb-10 tracking-widest pt-20">
         Results: {currentCategory.category}
       </h2>
 
