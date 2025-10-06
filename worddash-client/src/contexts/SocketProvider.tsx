@@ -7,9 +7,23 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [socket, setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-    const newSocket = io(import.meta.env.VITE_API_URL)
+    const backendUrl = import.meta.env.VITE_API_URL
+
+    if (!backendUrl) {
+      console.error('VITE_API_URL is not set! Socket.IO cannot connect.')
+      return
+    }
+
+    // Initialize Socket.IO with explicit transports for better AWS Amplify compatibility
+    const newSocket = io(backendUrl, {
+      transports: ['websocket', 'polling'],
+      reconnectionAttempts: 5,  // Optional: retries if connection fails
+      timeout: 20000,           // Optional: 20s timeout
+    })
+
     setSocket(newSocket)
 
+    // Cleanup on unmount
     return () => {
       newSocket.disconnect()
     }

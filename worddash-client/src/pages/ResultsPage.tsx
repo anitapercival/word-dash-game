@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import { useSocket } from '../hooks/useSocket'
 
@@ -94,7 +94,7 @@ const ResultsPage = () => {
       <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#1f1c2c] to-[#928dab] text-white font-retro p-6">
         <h2 className="text-3xl mb-10 text-yellow-300">Leaderboard</h2>
         <ul className="w-full max-w-md space-y-4 mb-16">
-          {scores.map((score, i) => (
+          {scores.map((score) => (
             <li
               key={score.playerId}
               className="flex justify-between items-center px-4 py-3 bg-black border-2 border-yellow-400"
