@@ -90,7 +90,7 @@ const GamePage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] text-white font-retro p-6">
-      <h2 className="text-3xl mb-6 tracking-widest text-[#08d9d6]">
+      <h2 className="text-3xl mb-6 tracking-widest text-[#08d9d6] pt-20">
         Game Room{' '}
         <span className="text-[#ff2e63]">#{roomId?.toUpperCase()}</span>
       </h2>
@@ -110,7 +110,7 @@ const GamePage = () => {
           </div>
 
           <form
-            className="w-full max-w-md space-y-4"
+            className="w-full max-w-md space-y-4 pb-30"
             onSubmit={(e) => e.preventDefault()}
           >
             {categories.map((category) => (
