@@ -1,18 +1,24 @@
 # WordDash: Real-time Team Building Game
 
-WordDash is a real-time multiplayer web game designed to help remote teams engage in fun, fast-paced team-building exercises. Each player must come up with answers for given categories, starting with a random letter, before time runs out. After submission, team members vote on the creativity and validity of answers, leading to a dynamic leaderboard.
-
-<img width="500" height="900" alt="Screenshot 2025-07-24 at 16 18 14" src="https://github.com/user-attachments/assets/4cfc1943-a4e3-458d-8c01-bd8f1217c675" />
-
-<img width="500" height="900" alt="Screenshot 2025-07-24 at 16 22 47" src="https://github.com/user-attachments/assets/c3c3b3b4-6b0f-47b9-8bb2-5ef5654edeb2" />
-
-<img width="500" height="900" alt="Screenshot 2025-07-24 at 16 23 45" src="https://github.com/user-attachments/assets/4dd60223-7b45-423c-8c15-fa559340a99a" />
-
 ---
 
 ## Problem Statement
 
 Remote teams often struggle with engagement and team cohesion due to the lack of in-person interaction. WordDash addresses this by providing a quick, browser-based multiplayer game where teams can compete and collaborate in real-time, and no setup required.
+
+---
+
+## Live Demo
+
+View the live project here: [WordDash Demo](https://word-dash-client.vercel.app/)
+
+Copy your game room code to play with multiple players!
+
+<img width="1920" height="1080" alt="Untitled design (2)" src="https://github.com/user-attachments/assets/11f59a2f-2ec0-4be4-91d5-1d3aeef0bd14" />
+
+---
+
+WordDash is a real-time multiplayer web game designed to help remote teams engage in fun, fast-paced team-building exercises. Each player must come up with answers for given categories, starting with a random letter, before time runs out. After submission, team members vote on the creativity and validity of answers, leading to a dynamic leaderboard.
 
 ---
 
